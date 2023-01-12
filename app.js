@@ -13,6 +13,7 @@ const signUpRoutes=require('./routes/signUpRoutes')
 const loginRoutes=require('./routes/loginRoutes')
 app.use(express.json())
 app.use(express.urlencoded({ extended:true}))
+require('dotenv').config()
 app.use('/test',testRoutes)
 app.use('/testDb',userRoutes)
 app.use('/employee',employeeRoutes)
@@ -37,7 +38,7 @@ app.use('/login',loginRoutes)
             console.log("DB connected");
         }
     })
-const PORT=3000
+const PORT = process.env.PORT || 3000;
 app.listen(PORT,()=>{
     console.log(`Server is running on port ${PORT}`);
 })
