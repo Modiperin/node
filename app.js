@@ -2,7 +2,7 @@ const express=require('express')
 const app = express()
 const mongoose=require('mongoose')
 const testRoutes=require('./routes/testRoutes')
-const userRoutes=require('./routes/userRoutes')
+// const userRoutes=require('./routes/userRoutes')
 const employeeRoutes=require('./routes/employeeRoutes')
 const deptRoutes=require('./routes/departmentRoutes')
 const productRoutes=require('./routes/productRoutes')
@@ -15,7 +15,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended:true}))
 require('dotenv').config()
 app.use('/test',testRoutes)
-app.use('/testDb',userRoutes)
+// app.use('/testDb',userRoutes)
 app.use('/employee',employeeRoutes)
 app.use('/department',deptRoutes)
 app.use('/product',productRoutes)
@@ -38,6 +38,18 @@ app.use('/login',loginRoutes)
             console.log("DB connected");
         }
     })
+
+    // mongoose.connect('mongodb://127.0.0.1:27017/club5',{
+    //     useNewUrlParser:true,
+    //     useUnifiedTopology:true,
+    // },(err)=>{
+    //     if(err){
+    //         console.log(err);
+    //     }
+    //     else{
+    //         console.log("DB connected");
+    //     }
+    // })
 const PORT = process.env.PORT || 3000;
 app.listen(PORT,()=>{
     console.log(`Server is running on port ${PORT}`);

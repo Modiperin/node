@@ -13,6 +13,12 @@ const signUpSchema=new Schema({
     },
     password:{
         type:String
+    },
+    ipAddress:{
+        type:String
+    },
+    count:{
+        type:Number
     }
 })
 module.exports=mongoose.model('signup',signUpSchema)
