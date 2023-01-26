@@ -17,8 +17,11 @@ const signUpSchema=new Schema({
     ipAddress:{
         type:String
     },
-    count:{
+    Otp:{
         type:Number
+    },
+    addAt:{
+        type:Date
     }
 })
 module.exports=mongoose.model('signup',signUpSchema)

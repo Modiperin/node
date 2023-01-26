@@ -1,7 +1,7 @@
 const jwt=require('jsonwebtoken');
 const secret='Bearer secret'
 // console.log(secret.split(" ")[1])
-const generateToken=(user)=>{
+module.exports.generateToken=(user)=>{
     jwt.sign(user, secret.split(" ")[1],{
         expiresIn:'2.5h',
 
@@ -17,9 +17,9 @@ const generateToken=(user)=>{
         }
     })
 }
-generateToken({userId:1,name:'Perin'})
+// generateToken({userId:1,name:'Perin'})
 
-const validateToken=(token)=>{
+module.exports.validateToken=(token)=>{
     jwt.verify(token,secret.split(" ")[1],(err,user)=>{
         if(err)
         {
@@ -28,8 +28,7 @@ const validateToken=(token)=>{
         else{
             // console.log('You are good to go')
             console.log(user)
-            console.log(user.name)
         }
     })
 }
-validateToken('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsIm5hbWUiOiJQZXJpbiIsImlhdCI6MTY3NDA0MjI5MywiZXhwIjoxNjc0MDUxMjkzfQ.ynu0Kt-yDfXADTZOrMokHR99zxIrfoChdsT53lR-woo')
+// validateToken('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsIm5hbWUiOiJQZXJpbiIsImlhdCI6MTY3NDA0MjI5MywiZXhwIjoxNjc0MDUxMjkzfQ.ynu0Kt-yDfXADTZOrMokHR99zxIrfoChdsT53lR-woo')

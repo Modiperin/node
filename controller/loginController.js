@@ -1,5 +1,6 @@
 const loginSchema=require('../model/loginSchema')
 const signUpSchema=require('../model/signUpSchema')
+const mail=require('../Util/mailer')
 const bcrypt=require('Bcrypt')
 
 const comSync=(pass,key)=>{
