@@ -1,5 +1,4 @@
 const signUpSchema=require('../model/signUpSchema')
-const OtpSchema=require('../model/OtpSchema')
 const jwtToken = require('../Util/jwtTokens')
 const mail=require('../Util/mailer')
 const bcrypt=require('Bcrypt')
@@ -59,17 +58,18 @@ module.exports.createUserUsingOTP=((req,res)=>{
 
 
 module.exports.verifyOtp=((req,res)=>{
-    var Otp=req.params.Otp
-    console.log(req.body)
     date=new Date()
-    console.log(date)
     signUpSchema.find({"email":req.body.email},(err,data)=>{
         if(err)
         {
             res.json({message:err})
         }
         else{
-            if(Otp==data[0].Otp)
+            if(data[0]==undefined)
+            {
+                res.json({message:'email entered not found'})
+            }
+            else if((req.params.Otp)==(data[0].Otp))
             {
                 console.log((date.getMinutes()-data[0].addAt.getMinutes()))
                 if(date.getMinutes()-data[0].addAt.getMinutes()<=5)

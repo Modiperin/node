@@ -1,6 +1,5 @@
 const mailer=require('nodemailer')
 const signUpSchema=require('../model/signUpSchema')
-const OtpSchema=require('../model/OtpSchema')
 var OTP=(Math.floor(Math.random()*10000))
 async function apicall2(to,Otp,id)
     {

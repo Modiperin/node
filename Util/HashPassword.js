@@ -37,12 +37,12 @@ const saltRound=10
 //     console.log(err)
 // })
 
-const hashSync=(pass)=>{
+module.exports.hashSync=(pass)=>{
     return bcrypt.hashSync(pass,saltRound)
 }
-console.log(hashSync('12345'))
+// console.log(hashSync('12345'))
 
-const comSync=(pass,key)=>{
+module.exports.comSync=(pass,key)=>{
     return bcrypt.compareSync(pass,key)
 }
-console.log(comSync('12345','$2b$10$ALjKBkLoBiD/54WPTVaKUeWw9vS72nu7sEgoPHFDo6srVvkQAL2pW'))
+// console.log(comSync('12345','$2b$10$ALjKBkLoBiD/54WPTVaKUeWw9vS72nu7sEgoPHFDo6srVvkQAL2pW'))

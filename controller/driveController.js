@@ -23,7 +23,7 @@ exports.uploadFileDrive=((req,res)=>{
             }
             else{
                 res.status(200).json({message:"File uploaded",file:`uplaods/${req.file.filename}`});
-                var x=googleUploadController.uploadFile(req.file.path)
+                googleUploadController.uploadFile(req.file.path)
             }
         }
 
