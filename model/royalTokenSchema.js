@@ -27,12 +27,12 @@ const royalTokenApp=new Schema({
         default:0
     },
     wallet:{
-        type:Number,
-        default:100
-    }
-    // dataAdded:[{
-    //     type:String
-    // }],
+        type:Schema.Types.ObjectId,
+        ref:'royalWallet'
+    },
+    dataAdded:[{
+        type:String
+    }]
     // totalUsed:{
     //     type:Number
     // }

@@ -1,6 +1,7 @@
 const royalTokenSchema=require('../model/royalTokenSchema')
 const hashing=require('../util/HashPassword')
 const driveController=require('../controller/driveController')
+const royalWalletSchema=require('../model/royalWalletSchema')
 const multer=require('multer')
 const googleUploadController=require('../controller/googleUploadController')
 const storage=multer.diskStorage({
@@ -62,7 +63,7 @@ exports.addFile=((req,res)=>{
                         }
                         else if(Number(spaceused)<=data.allotedSpace)
                         {
-                            updateUser(req.params.id,req.file.size,data.spaceUsed)
+                            updateUser(req.params.id,req.file.size,data.spaceUsed,req.file.filename)
                             googleUploadController.uploadFile(req.file.path)
                             res.status(200).json({message:"File uploaded",file:`uplaods/${req.file.filename}`});
                             console.log('data')
@@ -81,7 +82,7 @@ exports.addFile=((req,res)=>{
     })
 })
 
-function updateUser(id,size,spaceUsed)
+function updateUser(id,size,spaceUsed,dataAdded)
 {
     royalTokenSchema.updateOne({"_id":id},{"spaceUsed":spaceUsed+( size/ 1024000)},(err,data)=>{
         if(err)
@@ -92,10 +93,31 @@ function updateUser(id,size,spaceUsed)
             console.log(data)
         }
     })
+    royalTokenSchema.findOneAndUpdate({"_id":id},{$push:{"dataAdded":dataAdded}},{new:true},(err,data)=>{
+        if(err)
+            {
+               console.log('err is pushing')
+            }
+            else{
+                console.log('data Added',data)
+            }
+    })
 }
 
 async function getSize(req){
     let data=await royalTokenSchema.findOne({"_id":req.params.id})
     return data
 }
+
+exports.addWallet=((req,res)=>{
+    royalWalletSchema.create(req.body,(err,data)=>{
+        if(err)
+        {
+            res.status(500).json({message:err})
+        }
+        else{
+            res.status(200).json({message:data})
+        }
+    })
+})
 
