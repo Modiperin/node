@@ -26,12 +26,16 @@ const royalTokenApp=new Schema({
         type:Number,
         default:0
     },
-    dataAdded:[{
-        type:String
-    }],
-    totalUsed:{
-        type:Number
+    wallet:{
+        type:Number,
+        default:100
     }
+    // dataAdded:[{
+    //     type:String
+    // }],
+    // totalUsed:{
+    //     type:Number
+    // }
 })
 
 module.exports =mongoose.model('royaluser',royalTokenApp)
