@@ -110,14 +110,65 @@ async function getSize(req){
 }
 
 exports.addWallet=((req,res)=>{
-    royalWalletSchema.create(req.body,(err,data)=>{
-        if(err)
+    royalWalletSchema.find({"email":req.body.email},(err,data)=>{
+        if(data.length>0)
         {
-            res.status(500).json({message:err})
+            res.status(200).json({message:'User Already Registered'})
         }
         else{
-            res.status(200).json({message:data})
+            royalWalletSchema.create(req.body,(err,data)=>{
+                if(err)
+                {
+                    res.status(500).json({message:'Error in creating User'});
+                }
+                else{
+                    res.json({message:'Wallet Create Successfully'})
+                    // res.status(200).json({message:'SignUp Successfully',data:data});
+                }
+            })
         }
     })
 })
 
+async function getToken(req){
+    let data=await royalWalletSchema.findOne({"_id":req.params.id})
+    return data
+}
+
+async function getSizeEmail(req){
+    let data=await royalTokenSchema.findOne({"email":req.body.email})
+    return data
+}
+
+exports.buyStorage=((req,res)=>{
+    getToken(req).then((data)=>{
+        token=parseInt(data.token)-parseInt(req.body.storage)
+        console.log(token)
+        if(token>=0)
+        {
+            console.log('update in token')
+            royalWalletSchema.updateOne({"email":req.body.email},{"token":parseInt(data.token)-parseInt(req.body.storage)},(err,data1)=>{
+                if(err)
+                res.status(500).json({message:'Error in updating Wallet'});
+                else
+                console.log(data1)
+            })
+            getSizeEmail(req).then((data2)=>{
+                royalTokenSchema.updateOne({"email":req.body.email},{"allotedSpace":parseInt(data2.allotedSpace)+parseInt(req.body.storage)},(err,data2)=>{
+                    if(err)
+                    res.status(500).json({message:'Error in updating Wallet'});
+                    else
+                    res.status(500).json({message:data2});
+                })
+                // res.status(200).json({message:'You Have Successfully purchase the storage Enjoy.........'})
+            }).catch((err)=>{
+                console.log(err)
+            })
+        }
+        else{
+            res.status(200).json({message:'You Have No more tokens to puchase the storage'})
+        }
+    }).catch((err)=>{
+        console.log(err);
+    })
+})

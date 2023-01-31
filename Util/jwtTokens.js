@@ -25,11 +25,11 @@ async function token(user){
     return await data
 }
 // generateToken({userId:1,name:'Perin'})
-token({userId:1,name:'Perin'}).then((data)=>{
-    console.log(data)
-}).catch((err)=>{
-    console.log(err)
-})
+// token({userId:1,name:'Perin'}).then((data)=>{
+//     console.log(data)
+// }).catch((err)=>{
+//     console.log(err)
+// })
 // module.exports= y;
 
 module.exports.validateToken=(token)=>{

@@ -8,7 +8,7 @@ const royalWallet=new Schema({
     email:{
         type:String
     },
-    credit:{
+    token:{
         type:Number,
         default:100
     },
