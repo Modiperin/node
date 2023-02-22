@@ -2,7 +2,7 @@ const jwt=require('jsonwebtoken');
 const secret='Bearer secret'
 // console.log(secret.split(" ")[1])
 // var y;
-module.exports.generateToken=(user)=>{
+const generateToken=(user)=>{
     jwt.sign(user, secret.split(" ")[1],{
         expiresIn:'2.5h',
 
